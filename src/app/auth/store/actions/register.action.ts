@@ -1,4 +1,4 @@
-import { BackendErrorsInterface } from './../../../shared/types/backendErrors.interface';
+import { BackendErrorsInterface } from '../../../shared/types/backendErrors.interface';
 import { createAction, props } from '@ngrx/store';
 
 import { CurrentUserInterface } from 'src/app/shared/types/currentUser.interface';

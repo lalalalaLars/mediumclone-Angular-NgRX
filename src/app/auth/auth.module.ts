@@ -1,7 +1,7 @@
-import { PersistanceService } from './../shared/services/persistance.service';
-import { BackendErrorMessagesModule } from './../shared/modules/backendErrorMessages/backendErrorMessages.modules';
+import { LoginEffect } from 'src/app/auth/store/effects/login.effect';
+import { PersistanceService } from 'src/app/shared/services/persistance.service';
+import { BackendErrorMessagesModule } from 'src/app/shared/modules/backendErrorMessages/backendErrorMessages.modules';
 import { RegisterEffect } from 'src/app/auth/store/effects/register.effect';
-
 import { RegisterComponent } from 'src/app/auth/components/register/register.component';
 import { reducers } from 'src/app/auth/store/reducers';
 import { AuthService } from 'src/app/auth/services/auth.service';
@@ -28,7 +28,7 @@ const routes = [
     RouterModule.forChild(routes),
     ReactiveFormsModule,
     StoreModule.forFeature('auth', reducers),
-    EffectsModule.forFeature([RegisterEffect]),
+    EffectsModule.forFeature([RegisterEffect, LoginEffect]),
     BackendErrorMessagesModule,
   ],
 })

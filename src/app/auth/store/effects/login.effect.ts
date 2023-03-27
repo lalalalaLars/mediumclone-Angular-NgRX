@@ -1,11 +1,11 @@
-import { PersistanceService } from './../../../shared/services/persistance.service';
-import {
-  registerSuccessAction,
-  registerFailureAction,
-  registerAction,
-} from 'src/app/auth/store/actions/register.action';
+import { PersistanceService } from 'src/app/shared/services/persistance.service';
 import { CurrentUserInterface } from 'src/app/shared/types/currentUser.interface';
 import { AuthService } from 'src/app/auth/services/auth.service';
+import {
+  loginAction,
+  loginFailureAction,
+  loginSuccessAction,
+} from 'src/app/auth/store/actions/login.action';
 
 import { Injectable } from '@angular/core';
 import { Actions, ofType, createEffect } from '@ngrx/effects';
@@ -15,22 +15,22 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 @Injectable()
-export class RegisterEffect {
+export class LoginEffect {
   //actions$ = all actions.
-  //pipe(ofType(registerAction)) = only subscriping to the action ofType      registerAction from the stream of all actions.
-  register$ = createEffect(() =>
+  //pipe(ofType(loginAction)) = only subscriping to the action ofType      loginAction from the stream of all actions.
+  login$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(registerAction),
+      ofType(loginAction),
       switchMap(({ request }) => {
-        return this.authService.register(request).pipe(
+        return this.authService.login(request).pipe(
           map((currentUser: CurrentUserInterface) => {
             this.persistanceService.set('accessToken', currentUser.token);
-            return registerSuccessAction({ currentUser });
+            return loginSuccessAction({ currentUser });
           }),
 
           catchError((errorResponse: HttpErrorResponse) => {
             return of(
-              registerFailureAction({ errors: errorResponse.error.errors })
+              loginFailureAction({ errors: errorResponse.error.errors })
             );
           })
         );
@@ -41,7 +41,7 @@ export class RegisterEffect {
   redirectAfterSubmit$ = createEffect(
     () =>
       this.actions$.pipe(
-        ofType(registerSuccessAction),
+        ofType(loginSuccessAction),
         tap(() => {
           console.log('1');
           this.router.navigateByUrl('/');

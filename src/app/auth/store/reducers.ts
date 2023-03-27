@@ -1,11 +1,16 @@
 import {
+  loginAction,
+  loginSuccessAction,
+  loginFailureAction,
+} from 'src/app/auth/store/actions/login.action';
+import {
   registerSuccessAction,
   registerFailureAction,
-} from './actions/register.actions';
-import { Action, createReducer, on } from '@ngrx/store';
-
+} from 'src/app/auth/store/actions/register.action';
 import { AuthStateInterface } from 'src/app/auth/types/authState.interface';
-import { registerAction } from 'src/app/auth/store/actions/register.actions';
+import { registerAction } from 'src/app/auth/store/actions/register.action';
+
+import { Action, createReducer, on } from '@ngrx/store';
 
 const initialState: AuthStateInterface = {
   isSubmitting: false,
@@ -16,6 +21,7 @@ const initialState: AuthStateInterface = {
 
 const authReducer = createReducer(
   initialState,
+  // Register
   on(
     registerAction,
     (state): AuthStateInterface => ({
@@ -35,6 +41,33 @@ const authReducer = createReducer(
   ),
   on(
     registerFailureAction,
+    (state, action): AuthStateInterface => ({
+      ...state,
+      isSubmitting: false,
+      validaionErrors: action.errors,
+    })
+  ),
+
+  // Login
+  on(
+    loginAction,
+    (state): AuthStateInterface => ({
+      ...state,
+      isSubmitting: true,
+      validaionErrors: null,
+    })
+  ),
+  on(
+    loginSuccessAction,
+    (state, action): AuthStateInterface => ({
+      ...state,
+      isSubmitting: false,
+      isLoggedIn: true,
+      currentUser: action.currentUser,
+    })
+  ),
+  on(
+    loginFailureAction,
     (state, action): AuthStateInterface => ({
       ...state,
       isSubmitting: false,
