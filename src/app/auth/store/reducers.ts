@@ -1,5 +1,5 @@
 import {
-  registerSucessAction,
+  registerSuccessAction,
   registerFailureAction,
 } from './actions/register.actions';
 import { Action, createReducer, on } from '@ngrx/store';
@@ -25,7 +25,7 @@ const authReducer = createReducer(
     })
   ),
   on(
-    registerSucessAction,
+    registerSuccessAction,
     (state, action): AuthStateInterface => ({
       ...state,
       isSubmitting: false,

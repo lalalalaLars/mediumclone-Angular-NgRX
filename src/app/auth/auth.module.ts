@@ -1,3 +1,4 @@
+import { PersistanceService } from './../shared/services/persistance.service';
 import { BackendErrorMessagesModule } from './../shared/modules/backendErrorMessages/backendErrorMessages.modules';
 import { RegisterEffect } from 'src/app/auth/store/effects/register.effect';
 
@@ -21,7 +22,7 @@ const routes = [
 
 @NgModule({
   declarations: [RegisterComponent],
-  providers: [AuthService],
+  providers: [AuthService, PersistanceService],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),

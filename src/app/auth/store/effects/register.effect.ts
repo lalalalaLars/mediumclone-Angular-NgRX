@@ -1,5 +1,6 @@
+import { PersistanceService } from './../../../shared/services/persistance.service';
 import {
-  registerSucessAction,
+  registerSuccessAction,
   registerFailureAction,
   registerAction,
 } from 'src/app/auth/store/actions/register.actions';
@@ -8,9 +9,10 @@ import { AuthService } from 'src/app/auth/services/auth.service';
 
 import { Injectable } from '@angular/core';
 import { Actions, ofType, createEffect } from '@ngrx/effects';
-import { catchError, map, switchMap } from 'rxjs/operators';
+import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class RegisterEffect {
@@ -22,7 +24,8 @@ export class RegisterEffect {
       switchMap(({ request }) => {
         return this.authService.register(request).pipe(
           map((currentUser: CurrentUserInterface) => {
-            return registerSucessAction({ currentUser });
+            this.persistanceService.set('accessToken', currentUser.token);
+            return registerSuccessAction({ currentUser });
           }),
 
           catchError((errorResponse: HttpErrorResponse) => {
@@ -35,5 +38,22 @@ export class RegisterEffect {
     )
   );
 
-  constructor(private actions$: Actions, private authService: AuthService) {}
+  redirectAfterSubmit$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(registerSuccessAction),
+        tap(() => {
+          console.log('1');
+          this.router.navigateByUrl('/');
+        })
+      ),
+    { dispatch: false }
+  );
+
+  constructor(
+    private actions$: Actions,
+    private authService: AuthService,
+    private persistanceService: PersistanceService,
+    private router: Router
+  ) {}
 }
