@@ -1,3 +1,4 @@
+import { BackendErrorMessagesModule } from './../shared/modules/backendErrorMessages/backendErrorMessages.modules';
 import { RegisterEffect } from 'src/app/auth/store/effects/register.effect';
 
 import { RegisterComponent } from 'src/app/auth/components/register/register.component';
@@ -27,6 +28,7 @@ const routes = [
     ReactiveFormsModule,
     StoreModule.forFeature('auth', reducers),
     EffectsModule.forFeature([RegisterEffect]),
+    BackendErrorMessagesModule,
   ],
 })
 export class AuthModule {}
