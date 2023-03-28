@@ -9,9 +9,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthModule } from './auth/auth.module';
 import { environment } from 'src/environments/environment';
+import { TopBarModule } from './shared/modules/topBar/topBar.module';
 
 @NgModule({
   declarations: [AppComponent],
+  providers: [],
+  bootstrap: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -23,8 +26,7 @@ import { environment } from 'src/environments/environment';
       logOnly: environment.production,
     }),
     EffectsModule.forRoot([]),
+    TopBarModule,
   ],
-  providers: [],
-  bootstrap: [AppComponent],
 })
 export class AppModule {}
