@@ -5,7 +5,7 @@ import {
   getFeedFailureAction,
   getFeedSuccessAction,
 } from 'src/app/shared/modules/feed/store/actions/feed.action';
-import { FeedStateInterface } from 'src/app/shared/types/feedState.interface';
+import { FeedStateInterface } from 'src/app/shared/modules/feed/types/feedState.interface';
 
 const initialState: FeedStateInterface = {
   data: null,
@@ -26,7 +26,7 @@ const feedReducer = createReducer(
     getFeedSuccessAction,
     (state, action): FeedStateInterface => ({
       ...state,
-      isLoading: true,
+      isLoading: false,
       data: action.feed,
     })
   ),

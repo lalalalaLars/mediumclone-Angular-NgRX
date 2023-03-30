@@ -1,5 +1,4 @@
-import { createFeatureSelector } from '@ngrx/store';
-import { createSelector } from '@ngrx/store';
+import { createSelector, createFeatureSelector } from '@ngrx/store';
 
 import { AuthStateInterface } from 'src/app/auth/types/authState.interface';
 
