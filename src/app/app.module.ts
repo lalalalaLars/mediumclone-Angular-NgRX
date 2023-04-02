@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store';
 
 import { GlobalFeedModule } from 'src/app/globalFeed/globalFeed.module';
 import { AppRoutingModule } from 'src/app/app-routing.module';
@@ -30,7 +31,8 @@ import { AuthInterceptor } from 'src/app/shared/services/authinterceptor.service
     AppRoutingModule,
     AuthModule,
     HttpClientModule,
-    StoreModule.forRoot({}),
+    StoreModule.forRoot({ router: routerReducer }),
+    StoreRouterConnectingModule.forRoot(),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production,
