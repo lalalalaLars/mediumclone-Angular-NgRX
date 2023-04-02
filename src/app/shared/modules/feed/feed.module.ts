@@ -4,6 +4,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
+import { PaginationModule } from 'src/app/shared/modules/pagination/pagination.module';
 import { ErrorMessageModule } from 'src/app/shared/modules/errorMessage/errorMessage.module';
 import { reducers } from 'src/app/shared/modules/feed/store/reducers';
 import { GetFeedEffect } from 'src/app/shared/modules/feed/effects/getFeed.effect';
@@ -12,6 +13,9 @@ import { FeedComponent } from 'src/app/shared/modules/feed/components/feed.compo
 import { LoadingModule } from 'src/app/shared/modules/loading/loading.module';
 
 @NgModule({
+  declarations: [FeedComponent],
+  exports: [FeedComponent],
+  providers: [FeedService],
   imports: [
     CommonModule,
     EffectsModule.forFeature([GetFeedEffect]),
@@ -19,9 +23,7 @@ import { LoadingModule } from 'src/app/shared/modules/loading/loading.module';
     RouterModule,
     ErrorMessageModule,
     LoadingModule,
+    PaginationModule,
   ],
-  declarations: [FeedComponent],
-  exports: [FeedComponent],
-  providers: [FeedService],
 })
 export class FeedModule {}

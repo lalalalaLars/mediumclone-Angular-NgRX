@@ -26,7 +26,13 @@
           HERE LIST OF TAGS
         </a>
       </div>
-      PAGINATION
     </div>
   </div>
+  <mc-pagination
+    [total]="(feed$ | async)?.articlesCount"
+    [limit]="limit"
+    [url]="baseUrl"
+    [currentPage]="currentPage"
+  ></mc-pagination>
+  PAGINATION
 </div>
