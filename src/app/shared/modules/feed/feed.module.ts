@@ -11,6 +11,7 @@ import { GetFeedEffect } from 'src/app/shared/modules/feed/effects/getFeed.effec
 import { FeedService } from 'src/app/shared/modules/feed/services/feed.service';
 import { FeedComponent } from 'src/app/shared/modules/feed/components/feed.component';
 import { LoadingModule } from 'src/app/shared/modules/loading/loading.module';
+import { TaglistModule } from 'src/app/shared/modules/tagList/taglist.module';
 
 @NgModule({
   declarations: [FeedComponent],
@@ -24,6 +25,7 @@ import { LoadingModule } from 'src/app/shared/modules/loading/loading.module';
     ErrorMessageModule,
     LoadingModule,
     PaginationModule,
+    TaglistModule,
   ],
 })
 export class FeedModule {}
