@@ -14,7 +14,6 @@ import { environment } from 'src/environments/environment';
 import { TopBarModule } from 'src/app/shared/modules/topBar/topBar.module';
 import { PersistanceService } from 'src/app/shared/services/persistance.service';
 import { AuthInterceptor } from 'src/app/shared/services/authinterceptor.service';
-
 @NgModule({
   declarations: [AppComponent],
   providers: [
