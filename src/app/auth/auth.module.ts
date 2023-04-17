@@ -15,6 +15,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { EffectsModule } from '@ngrx/effects';
 
+// Define the routes for the AuthModule
 const routes = [
   {
     path: 'register',
@@ -27,8 +28,13 @@ const routes = [
 ];
 
 @NgModule({
+  // Declare the components used in the AuthModule
   declarations: [RegisterComponent, LoginComponent],
+
+  // Declare the services used in the AuthModule
   providers: [AuthService, PersistanceService],
+
+  // Import the required Angular and external modules
   imports: [
     CommonModule,
     RouterModule.forChild(routes),

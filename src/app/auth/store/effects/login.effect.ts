@@ -1,3 +1,6 @@
+// This file contains the implementation of LoginEffect class which is responsible for handling login related side-effects
+// including network request to authenticate user, setting access token in local storage, and redirecting to home page on successful login.
+
 import { PersistanceService } from 'src/app/shared/services/persistance.service';
 import { CurrentUserInterface } from 'src/app/shared/types/currentUser.interface';
 import { AuthService } from 'src/app/auth/services/auth.service';
@@ -16,18 +19,21 @@ import { Router } from '@angular/router';
 
 @Injectable()
 export class LoginEffect {
-  //actions$ = all actions.
-  //pipe(ofType(loginAction)) = only subscriping to the action ofType      loginAction from the stream of all actions.
+  // Effect to handle the login action.
   login$ = createEffect(() =>
     this.actions$.pipe(
+      // Subscribe to the login action only.
       ofType(loginAction),
       switchMap(({ request }) => {
+        // Call the login API using AuthService and handle response using RxJS operators.
         return this.authService.login(request).pipe(
+          // Save access token in local storage on successful login and dispatch loginSuccessAction.
           map((currentUser: CurrentUserInterface) => {
             this.persistanceService.set('accessToken', currentUser.token);
             return loginSuccessAction({ currentUser });
           }),
 
+          // Dispatch loginFailureAction on error.
           catchError((errorResponse: HttpErrorResponse) => {
             return of(
               loginFailureAction({ errors: errorResponse.error.errors })
@@ -38,12 +44,15 @@ export class LoginEffect {
     )
   );
 
+  // Effect to redirect user to home page on successful login.
   redirectAfterSubmit$ = createEffect(
     () =>
       this.actions$.pipe(
+        // Subscribe to the login success action only.
         ofType(loginSuccessAction),
         tap(() => {
           console.log('1');
+          // Navigate to home page using router.
           this.router.navigateByUrl('/');
         })
       ),

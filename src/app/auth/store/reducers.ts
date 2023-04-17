@@ -1,3 +1,5 @@
+// This file contains the implementation of the authentication feature's reducer, which handles the state updates based on the dispatched actions.
+
 import {
   getCurrentUserAction,
   getCurrentUserSuccessAction,
@@ -17,17 +19,21 @@ import { AuthStateInterface } from 'src/app/auth/types/authState.interface';
 
 import { Action, createReducer, on } from '@ngrx/store';
 
+// The initial state of the authentication feature is defined here.
 const initialState: AuthStateInterface = {
-  isSubmitting: false,
-  isLoading: false,
-  currentUser: null,
-  validaionErrors: null,
-  isLoggedIn: null,
+  isSubmitting: false, // indicates whether the user is currently submitting a form
+  isLoading: false, // indicates whether the app is currently fetching the current user's details
+  currentUser: null, // contains the details of the currently logged-in user
+  validaionErrors: null, // contains any validation errors that occur during the authentication process
+  isLoggedIn: null, // indicates whether the user is currently logged in or not
 };
 
+// The authReducer is created using the createReducer function provided by @ngrx/store.
+// This function takes an initial state and a set of reducer functions, each of which handles a specific action type.
 const authReducer = createReducer(
   initialState,
-  // Register
+
+  // Register actions
   on(
     registerAction,
     (state): AuthStateInterface => ({
@@ -54,7 +60,7 @@ const authReducer = createReducer(
     })
   ),
 
-  // Login
+  // Login actions
   on(
     loginAction,
     (state): AuthStateInterface => ({
@@ -80,6 +86,8 @@ const authReducer = createReducer(
       validaionErrors: action.errors,
     })
   ),
+
+  // Get current user actions
   on(
     getCurrentUserAction,
     (state): AuthStateInterface => ({
@@ -107,6 +115,7 @@ const authReducer = createReducer(
   )
 );
 
+// This function is used to combine all the reducers used by the application.
 export function reducers(state: AuthStateInterface, action: Action) {
   return authReducer(state, action);
 }

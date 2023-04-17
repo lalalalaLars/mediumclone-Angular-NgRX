@@ -15,36 +15,37 @@ import { BackendErrorsInterface } from 'src/app/shared/types/backendErrors.inter
   styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent implements OnInit {
-  form: FormGroup;
-  isSubmitting$: Observable<boolean>;
-  backendErrors$: Observable<BackendErrorsInterface | null>;
+  form: FormGroup; // Declare form variable of type FormGroup
+  isSubmitting$: Observable<boolean>; // Declare isSubmitting$ variable of type Observable<boolean>
+  backendErrors$: Observable<BackendErrorsInterface | null>; // Declare backendErrors$ variable of type Observable<BackendErrorsInterface | null>
 
   constructor(private fb: FormBuilder, private store: Store) {}
 
   ngOnInit(): void {
-    this.initializeForm();
-    this.initializeValues();
+    this.initializeForm(); // Call initializeForm function to set up form
+    this.initializeValues(); // Call initializeValues function to set up isSubmitting$ and backendErrors$ Observables
   }
 
   initializeValues(): void {
-    this.isSubmitting$ = this.store.pipe(select(isSubmittingSelector));
-    this.backendErrors$ = this.store.pipe(select(validationErrorsSelector));
+    this.isSubmitting$ = this.store.pipe(select(isSubmittingSelector)); // Set isSubmitting$ Observable to result of isSubmittingSelector function from store
+    this.backendErrors$ = this.store.pipe(select(validationErrorsSelector)); // Set backendErrors$ Observable to result of validationErrorsSelector function from store
   }
 
   initializeForm(): void {
     console.log('initializeForm');
     this.form = this.fb.group({
-      username: ['', Validators.required],
-      email: ['', Validators.required],
-      password: ['', Validators.required],
+      // Create FormGroup using FormBuilder
+      username: ['', Validators.required], // Add username FormControl with required validator
+      email: ['', Validators.required], // Add email FormControl with required validator
+      password: ['', Validators.required], // Add password FormControl with required validator
     });
   }
 
   onSubmit(): void {
-    console.log('Submit', this.form.value, this.form.valid);
+    console.log('Submit', this.form.value, this.form.valid); // Log form value and validity to console
     const request: RegisterRequestInterface = {
-      user: this.form.value,
+      user: this.form.value, // Set user property of request object to form value
     };
-    this.store.dispatch(registerAction({ request }));
+    this.store.dispatch(registerAction({ request })); // Dispatch registerAction with request object as payload
   }
 }

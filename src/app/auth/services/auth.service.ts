@@ -12,26 +12,30 @@ import { environment } from 'src/environments/environment';
 export class AuthService {
   constructor(private http: HttpClient) {}
 
+  // Get user from response object
   getUser(respose: AuthResponseInterface): CurrentUserInterface {
     return respose.user;
   }
 
+  // Send register request and return observable of CurrentUserInterface
   register(data: RegisterRequestInterface): Observable<CurrentUserInterface> {
-    const url = environment.apiUrl + '/users';
+    const url = environment.apiUrl + '/users'; // Set url to register endpoint
     return this.http
-      .post<AuthResponseInterface>(url, data)
-      .pipe(map(this.getUser));
+      .post<AuthResponseInterface>(url, data) // Send POST request to url with data as body
+      .pipe(map(this.getUser)); // Map response to CurrentUserInterface using getUser function
   }
 
+  // Send login request and return observable of CurrentUserInterface
   login(data: LoginRequestInterface): Observable<CurrentUserInterface> {
-    const url = environment.apiUrl + '/users/login';
+    const url = environment.apiUrl + '/users/login'; // Set url to login endpoint
     return this.http
-      .post<AuthResponseInterface>(url, data)
-      .pipe(map(this.getUser));
+      .post<AuthResponseInterface>(url, data) // Send POST request to url with data as body
+      .pipe(map(this.getUser)); // Map response to CurrentUserInterface using getUser function
   }
 
+  // Get current user and return observable of CurrentUserInterface
   getCurrentUser(): Observable<CurrentUserInterface> {
-    const url = environment.apiUrl + '/user';
-    return this.http.get(url).pipe(map(this.getUser));
+    const url = environment.apiUrl + '/user'; // Set url to current user endpoint
+    return this.http.get(url).pipe(map(this.getUser)); // Send GET request to url and map response to CurrentUserInterface using getUser function
   }
 }

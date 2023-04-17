@@ -14,25 +14,26 @@ import { of } from 'rxjs';
 
 @Injectable()
 export class GetCurrentUserEffect {
-  //actions$ = all actions.
-  //pipe(ofType(loginAction)) = only subscriping to the action ofType      loginAction from the stream of all actions.
+  // Effect to retrieve the current user information
   getCurrentUser$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(getCurrentUserAction),
+      ofType(getCurrentUserAction), // Listen for getCurrentUserAction
       switchMap(() => {
-        const token = this.persistanceService.get('accessToken');
+        const token = this.persistanceService.get('accessToken'); // Retrieve the access token from the persistence service
 
         if (!token) {
+          // If access token is not present, return failure action
           return of(getCurrentUserFailureAction());
         }
 
+        // Use the auth service to get the current user information using the access token
         return this.authService.getCurrentUser().pipe(
           map((currentUser: CurrentUserInterface) => {
-            return getCurrentUserSuccessAction({ currentUser });
+            return getCurrentUserSuccessAction({ currentUser }); // On success, return the current user information using the success action
           }),
 
           catchError(() => {
-            return of(getCurrentUserFailureAction());
+            return of(getCurrentUserFailureAction()); // On error, return the failure action
           })
         );
       })

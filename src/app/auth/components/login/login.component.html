@@ -1,17 +1,23 @@
+<!-- The following code creates the structure for a sign-in page. It includes a form for users to enter their email and password, with an option to navigate to the registration page.-->
+
 <div class="auth-page">
   <div class="container-page">
     <div class="row">
       <div class="col-md-6 offset-md-3 col-xs-12">
         <h1 class="text-xs-center">Sign In</h1>
+        <!-- Link to the registration page -->
         <p class="text-xs-center">
           <a [routerLink]="['/register']">Need an account?</a>
         </p>
+        <!-- This component shows any backend errors that may occur when submitting the form -->
         <mc-backend-error-messages
           *ngIf="backendErrors$ | async"
           [backendErrors]="backendErrors$ | async"
         ></mc-backend-error-messages>
+        <!-- The form uses a form group and is submitted via onSubmit() method -->
         <form [formGroup]="form" (ngSubmit)="onSubmit()">
           <fieldset>
+            <!-- Email input field -->
             <fieldset class="form-group">
               <input
                 type="text"
@@ -20,6 +26,7 @@
                 formControlName="email"
               />
             </fieldset>
+            <!-- Password input field -->
             <fieldset class="form-group">
               <input
                 type="password"
@@ -28,6 +35,7 @@
                 formControlName="password"
               />
             </fieldset>
+            <!-- Sign-in button -->
             <button
               class="btn btn-lg btn-primary pull-xs-right"
               type="submit"

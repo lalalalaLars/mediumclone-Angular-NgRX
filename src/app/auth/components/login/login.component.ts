@@ -15,22 +15,24 @@ import { loginAction } from 'src/app/auth/store/actions/login.action';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-  form: FormGroup;
-  isSubmitting$: Observable<boolean>;
-  backendErrors$: Observable<BackendErrorsInterface | null>;
+  form: FormGroup; // Form group for the login form
+  isSubmitting$: Observable<boolean>; // Observable for whether a login attempt is in progress
+  backendErrors$: Observable<BackendErrorsInterface | null>; // Observable for backend errors
 
   constructor(private fb: FormBuilder, private store: Store) {}
 
   ngOnInit(): void {
-    this.initializeForm();
-    this.initializeValues();
+    this.initializeForm(); // Initialize the login form
+    this.initializeValues(); // Initialize the values of the observables
   }
 
+  // Initialize the values of the isSubmitting$ and backendErrors$ observables
   initializeValues(): void {
     this.isSubmitting$ = this.store.pipe(select(isSubmittingSelector));
     this.backendErrors$ = this.store.pipe(select(validationErrorsSelector));
   }
 
+  // Initialize the login form with email and password fields and their validators
   initializeForm(): void {
     this.form = this.fb.group({
       email: ['', Validators.required],
@@ -38,6 +40,7 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  // Handle form submission and dispatch a login action with the entered credentials
   onSubmit(): void {
     const request: LoginRequestInterface = {
       user: this.form.value,
