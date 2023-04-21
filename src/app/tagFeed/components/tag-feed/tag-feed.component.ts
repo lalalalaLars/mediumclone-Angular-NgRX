@@ -7,14 +7,14 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./tag-feed.component.scss'],
 })
 export class TagFeedComponent implements OnInit {
-  tagName: string;
-  apiUrl: string;
+  tagName: string; // Property to store the name of the tag
+  apiUrl: string; // Property to store the URL for the API call
 
   constructor(private route: ActivatedRoute) {}
 
+  // Method to be executed when the component is initialized
   ngOnInit(): void {
-    this.tagName = this.route.snapshot.paramMap.get('slug');
-    console.log('this.tagName', this.tagName);
-    this.apiUrl = `/articles?tag=${this.tagName}`;
+    this.tagName = this.route.snapshot.paramMap.get('slug'); // Get the tag name from the URL parameters
+    this.apiUrl = `/articles?tag=${this.tagName}`; // Set the API URL using the tag name
   }
 }
