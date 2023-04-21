@@ -14,6 +14,8 @@ import { environment } from 'src/environments/environment';
 import { TopBarModule } from 'src/app/shared/modules/topBar/topBar.module';
 import { PersistanceService } from 'src/app/shared/services/persistance.service';
 import { AuthInterceptor } from 'src/app/shared/services/authinterceptor.service';
+import { YourFeedModule } from 'src/app/yourFeed/your-feed.module';
+import { TagFeedModule } from 'src/app/tagFeed/tag-feed.module';
 @NgModule({
   declarations: [AppComponent],
   providers: [
@@ -39,6 +41,8 @@ import { AuthInterceptor } from 'src/app/shared/services/authinterceptor.service
     EffectsModule.forRoot([]),
     TopBarModule,
     GlobalFeedModule,
+    YourFeedModule,
+    TagFeedModule,
   ],
 })
 export class AppModule {}
