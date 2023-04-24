@@ -2,16 +2,21 @@
   <div class="container-page">
     <div class="row">
       <div class="col-md-6 offset-md-3 col-xs-12">
+        <!-- Form header -->
         <h1 class="text-xs-center">Sign Up</h1>
+        <!-- Link to sign-in page -->
         <p class="text-xs-center">
           <a [routerLink]="['/login']">Have an account?</a>
         </p>
+        <!-- Display backend validation errors if present -->
         <mc-backend-error-messages
           *ngIf="backendErrors$ | async"
           [backendErrors]="backendErrors$ | async"
         ></mc-backend-error-messages>
+        <!-- Sign-up form -->
         <form [formGroup]="form" (ngSubmit)="onSubmit()">
           <fieldset>
+            <!-- Input field for username -->
             <fieldset class="form-group">
               <input
                 type="text"
@@ -20,6 +25,7 @@
                 formControlName="username"
               />
             </fieldset>
+            <!-- Input field for email -->
             <fieldset class="form-group">
               <input
                 type="text"
@@ -28,6 +34,7 @@
                 formControlName="email"
               />
             </fieldset>
+            <!-- Input field for password -->
             <fieldset class="form-group">
               <input
                 type="password"
@@ -36,6 +43,7 @@
                 formControlName="password"
               />
             </fieldset>
+            <!--Submit button for sign-up form-->
             <button
               class="btn btn-lg btn-primary pull-xs-right"
               type="submit"
