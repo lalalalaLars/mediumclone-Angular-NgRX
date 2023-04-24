@@ -12,7 +12,7 @@ export class ArticleService {
 
   // A method to get an article by its slug
   getArticle(slug: string): Observable<ArticleInterface> {
-    const fullUrl = `${environment.apiUrl}/articles${slug}`; // Create the full API URL with the provided slug
+    const fullUrl = `${environment.apiUrl}/articles/${slug}`; // Create the full API URL with the provided slug
     return this.http.get(fullUrl).pipe(
       map((response: GetArticleResponseInterface) => {
         return response.article; // Use the HttpClient to send a GET request to the API and return the response as an Observable
